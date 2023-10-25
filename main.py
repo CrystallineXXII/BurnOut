@@ -8,9 +8,7 @@ pg.init()
 screen = pg.display.set_mode((1600, 1000))
 
 
-def make_Explosion(pos):
-    for i in range(36):
-        utils.Particle(pos.copy(),Vector2(1,0).rotate(10*i))
+
 
 
 def main():
@@ -27,14 +25,35 @@ def main():
         utils.Bullet_Grp.update(screen,deltatime)
         utils.Particle_Grp.update(screen,deltatime)
         player.update(screen,deltatime)
+        utils.debug(screen,f"FPS: {1/deltatime:.0f}")
         pg.display.update()
 
         deltatime = time() - strTime
 
         for bullet in utils.Bullet_Grp.copy():
             if (player.pos - bullet.pos).magnitude() > 300:
-                make_Explosion(bullet.pos)
+                utils.make_Explosion(bullet.pos)
                 bullet.kill()
-                break
 
-main()
+def menu():
+    
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                exit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    return main,()
+
+        screen.fill("#272727")
+        pg.draw.rect(screen,"#00ffc8",pg.Rect(20,20,1560,960),5)
+        utils.text(screen,"BurnOut",Vector2(350,150), font="huge")
+        pg.display.update()
+
+if __name__ == "__main__":
+    func = menu
+    values = ()
+
+    while True: 
+        func, values = func(*values)

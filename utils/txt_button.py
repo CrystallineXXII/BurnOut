@@ -35,7 +35,7 @@ class TxtButton:
 
         mp = pg.mouse.get_pos()
         if self.rect.collidepoint(mp):
-            pg.draw.rect(surface, "#1c1c1c", self.bgrect,0,20)
+            pg.draw.rect(surface, "#1c1c1c", self.bgrect, 0, 20)
         if self.rect.collidepoint(pos):
             action = True
         surface.blit(self.label, self.rect)

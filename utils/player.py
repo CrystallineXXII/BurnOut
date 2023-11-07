@@ -1,7 +1,7 @@
 import pygame as pg
 from pygame.math import Vector2 
 from math import radians
-from .bullet import Bullet
+from .bullet import Bullet,Laser
 
 
 def draw_polygon(pos, n, radius, angle=0):
@@ -33,18 +33,18 @@ class Player:
         if keys[pg.K_d]:
             inputvec += Vector2(1, 0)
 
-        if pg.mouse.get_pressed()[0]:
-            self.shoot_timer += deltatime
-            if self.shoot_timer >= 0.1:
+        return inputvec.normalize() if inputvec.magnitude() > 0 else inputvec
+    
+    def shoot(self):
+            if self.shoot_timer == 0:
                 self.shoot_timer = 0
-                Bullet(
+                Laser(
                     self.pos.copy(),
                     (Vector2(pg.mouse.get_pos()) - self.pos).normalize(),
                 )
                 # print("shot")
             # print(self.shoot_timer)
 
-        return inputvec.normalize() if inputvec.magnitude() > 0 else inputvec
 
     def update(self,screen, deltatime):
         inputvec = self.get_input(deltatime)

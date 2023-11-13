@@ -1,10 +1,17 @@
-from .bullet import Bullet, Laser, Bullet_Grp
 from .particle import Particle, Particle_Grp
 from .player import Player
 from .txt_button import TxtButton
 
+
 from pygame.math import Vector2
 import pygame as pg
+
+def make_Explosion(pos):
+    for i in range(36):
+        Particle(pos.copy(), Vector2(1, 0).rotate(10 * i))
+
+from .bullet import Bullet, Laser, Bullet_Grp
+from .wall import Wall, Wall_Grp
 
 pg.font.init()
 
@@ -12,15 +19,9 @@ smol_font = pg.font.Font("Assets/Fonts/Raleway.ttf", 15)
 big_font = pg.font.Font("Assets/Fonts/Raleway.ttf", 40)
 huge_font = pg.font.Font("Assets/Fonts/Raleway.ttf", 100)
 
-
-def make_Explosion(pos):
-    for i in range(36):
-        Particle(pos.copy(), Vector2(1, 0).rotate(10 * i))
-
-
-def debug(screen, text):
-    text = big_font.render(text, True, "#00ffc8")
-    screen.blit(text, (0, 0))
+def debug(display_surf, text):
+    text = smol_font.render(text, True, "#eeeeee")
+    display_surf.blit(text, (0, 0))
 
 
 def text(screen, text, pos, font="smol"):

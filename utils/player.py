@@ -35,13 +35,15 @@ class Player:
 
         return inputvec.normalize() if inputvec.magnitude() > 0 else inputvec
 
-    def shoot(self):
-        if self.shoot_timer == 0:
+    def shoot(self,deltatime):
+        if self.shoot_timer > 0.25:
             self.shoot_timer = 0
             Laser(
                 self.pos.copy(),
                 (Vector2(pg.mouse.get_pos()) - self.pos).normalize(),
             )
+        else:
+            self.shoot_timer += deltatime
             # print("shot")
         # print(self.shoot_timer)
 

@@ -2,6 +2,7 @@ import pygame as pg
 from pygame.math import Vector2
 
 from .particle import Particle
+from .wall import Wall_Grp
 
 
 def make_Explosion(pos):
@@ -42,16 +43,28 @@ class Laser(pg.sprite.Sprite):
         self.lifetime = 0
 
     def update(self, screen, deltatime):
+
+        endpos = self.startpos.copy()
+        for i in range(60):
+            out = False
+            endpos += self.dir * 5 
+            for wall in Wall_Grp:
+                if wall.rect.collidepoint(endpos):
+                    wall.onfire()
+                    out = True
+
+            if out:
+                break
         if self.lifetime <= 0.1:
             pg.draw.line(
                 screen,
                 "#00ffc8",
                 self.startpos,
-                self.tpos,
+                endpos
             )
             self.lifetime += deltatime
         else:
             self.lifetime = 0
 
             self.kill()
-            make_Explosion(self.tpos)
+            make_Explosion(endpos)

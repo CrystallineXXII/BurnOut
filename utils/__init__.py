@@ -1,6 +1,8 @@
 from .particle import Particle, Particle_Grp
-from .player import Player
+from .player import Player, draw_polygon
 from .txt_button import TxtButton
+
+from .drawing import fade_to
 
 
 from pygame.math import Vector2
@@ -11,7 +13,7 @@ def make_Explosion(pos):
         Particle(pos.copy(), Vector2(1, 0).rotate(10 * i))
 
 from .bullet import Bullet, Laser, Bullet_Grp
-from .wall import Wall, Wall_Grp
+from .blocks import Wall, Wall_Grp, Torch, Torch_Grp
 
 pg.font.init()
 

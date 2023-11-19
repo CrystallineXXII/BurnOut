@@ -111,7 +111,7 @@ def menu():
 def intro():
 
     logo = pg.image.load("Assets/Images/logo.png")
-    logo = pg.transform.rotozoom(logo, 0, 0.1)
+    logo = pg.transform.rotozoom(logo, 0, 0.15)
     rect = logo.get_rect(center=(600, 375))
    
     clock = pg.time.Clock()
